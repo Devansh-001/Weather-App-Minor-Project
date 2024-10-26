@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    
+    <div class="weather-app">
+        <div class="alert-container" style="display: none;"></div>
+
+        <div class="container">
+            <h1 class="brand">The Weather</h1>
+
+            <div class="weather-input-container">
+                <div class="weather-info">
+                    <h1 class="temp"></h1>
+                    <div class="city-time">
+                        <h1 class="name"></h1>
+                        <small>
+                            <span class="time"></span> - <span class="date"></span>
+                        </small>
+                    </div>
+                    <div class="weather"></div>
+                    <div class="icon-condition">
+                        <img src="" class="icon" width="40" height="40" alt="img" style="vertical-align: middle;">
+                        <span class="condition"></span>
+                    </div>
+                    <div class="activity"></div>
+                </div>
+
+                <div class="weather-details">
+                    <ul>
+                        <h4>Weather Details</h4>
+                        <li>
+                            <span>Cloudy</span>
+                            <span class="cloud">98%</span>
+                        </li>
+                        <li>
+                            <span>Humidity</span>
+                            <span class="humidity">98%</span>
+                        </li>
+                        <li>
+                            <span>Wind</span>
+                            <span class="wind">8km/h</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="panel">
+                    <form action="" id="locationInput">
+                        <input type="text" class="search" placeholder="Search Location...">
+                        <button type="submit" class="submit">
+                            <i class="fas fa-search"></i> Submit
+                        </button>
+                    </form>
+            
+                    <ul class="cities">
+                        <li class="city">New York</li>
+                        <li class="city">Cali</li>
+                        <li class="city">Paris</li>
+                        <li class="city">Tokyo</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="forecast-container">
+                <h2>7-Day Forecast</h2>
+                <div class="forecast-days"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
