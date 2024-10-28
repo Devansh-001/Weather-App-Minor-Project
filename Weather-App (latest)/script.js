@@ -217,7 +217,7 @@ const suggestActivities = (data) => {
     }
 
     activityDiv.innerHTML = `<strong style="color: black;
-    background-color: #ffffff;
+    background-color: #ffffff0f;
     border-radius: 20px;
     padding: 0.16em;">Suggested Activities:</strong> ${activities.join(', ')}`;
 };
