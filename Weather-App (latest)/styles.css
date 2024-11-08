@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pacifico&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pacifico&family=Rubik+Wet+Paint&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace
 }
 
 html,
@@ -11,7 +19,7 @@ body {
 }
 
 .weather-app {
-    background-image: url('./image/defaultImage.jpg');
+    background-image: url('./images/defaultImage.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -78,8 +86,26 @@ body {
     padding: 0.8rem;
     border-radius: 15px;
     backdrop-filter: blur(5px);
-    box-shadow: 2px 2px 15px #ffffff52;
 }
+.pacifico-regular-brand {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .rubik-wet-paint-regular-brand {
+    font-family: "Rubik Wet Paint", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+
 
 .activity {
     margin-top: 1.7rem;
@@ -129,7 +155,7 @@ body {
     right: 2em;
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px);
+    /* backdrop-filter: blur(15px); */
     border-radius: 12px;
     z-index: 1;
     padding: 2em;
@@ -138,7 +164,7 @@ body {
 }
 
 .panel.alert-visible {
-    margin-top: 50px;
+    margin-top: 90px;
 }
 
 .panel:hover {
@@ -276,7 +302,7 @@ body {
     /* Lift effect */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     /* Deeper shadow on hover */
-    color: yellow;
+    color: #fa6d1b;
 }
 
 .forecast-day .day {

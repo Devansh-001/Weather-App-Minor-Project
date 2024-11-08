@@ -89,7 +89,6 @@ const setLoading = (isLoading) => {
     }
 };
 
-// Fetch weather data from OpenWeatherMap API
 const fetchWeatherData = async () => {
     setLoading(true);
     const weatherDetailsContainer = document.querySelector('.weather-details');
@@ -113,7 +112,7 @@ const fetchWeatherData = async () => {
         const date = new Date(data.dt * 1000);
         dateOutput.innerHTML = `${dayOfTheWeek(date)} ${date.getDate()}, ${date.getMonth() + 1} ${date.getFullYear()}`;
         nameOutput.innerHTML = data.name;
-        icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+        icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`; // Optionally keep the OpenWeather icon for display
         cloudOutput.innerHTML = `${data.clouds.all}%`;
         humidityOutput.innerHTML = `${data.main.humidity}%`;
         windOutput.innerHTML = `${data.wind.speed} m/s`;
@@ -122,8 +121,13 @@ const fetchWeatherData = async () => {
         weatherDetailsContainer.style.display = 'block';
         weatherInfoContainer.style.display = 'block';
 
-        // Fetch background image based on city and weather condition
+        // Get the weather condition (e.g., 'Clear', 'Clouds', 'Rain', etc.)
         const weatherCondition = data.weather[0].main.toLowerCase();
+
+        // Update the favicon and title with static images based on OpenWeatherMap condition
+        await updateTitleAndFavicon(weatherCondition);
+
+        // Fetch background image based on city and weather condition
         await fetchBackgroundImage(cityInput, weatherCondition);
 
         // Fetch future weather data
@@ -143,6 +147,39 @@ const fetchWeatherData = async () => {
         setLoading(false);
     }
 };
+
+
+// Update the favicon and title dynamically based on the weather condition
+const updateTitleAndFavicon = async (weatherCondition) => {
+    const iconUrl = getWeatherIcon(weatherCondition);  // Get the icon based on the weather condition
+
+    // Update favicon
+    const favicon = document.getElementById('favicon');
+    favicon.href = iconUrl;  // Set the favicon URL dynamically
+
+};
+
+// Helper function to get the appropriate static weather icon based on OpenWeatherMap condition
+const getWeatherIcon = (condition) => {
+    switch (condition.toLowerCase()) {
+        case 'clouds':
+            return './images/clouds.png';       // clouds.png for cloudy weather
+        case 'rain':
+            return './images/rain.png';         // rain.png for rain
+        case 'snow':
+            return './images/snow.png';         // snow.png for snow
+        case 'thunderstorm':
+            return './images/thunderstorm.png'; // thunderstorm.png for thunderstorms
+        case 'fog':
+            return './images/fog.png';          // fog.png for foggy weather
+        default:
+            return './images/weather.jpeg';
+    }
+};
+
+
+
+
 
 // Show alerts based on weather conditions
 const showAlerts = (data) => {
@@ -200,26 +237,79 @@ const suggestActivities = (data) => {
     const condition = data.weather[0].main.toLowerCase();
     let activities = [];
 
+    // Define activity suggestions based on weather condition
     if (condition === 'clear') {
-        activities = ["Go for a hike", "Have a picnic", "Take a bike ride"];
+        activities = [
+            "Go for a hike",
+            "Have a picnic",
+            "Take a bike ride",
+            "Go for a swim",
+            "Explore a new park or trail",
+            "Try outdoor photography",
+            "Plan a barbecue with friends"
+        ];
     } else if (condition === 'clouds') {
-        activities = ["Read a book indoors", "Visit a museum", "Watch a movie"];
+        activities = [
+            "Read a book indoors",
+            "Visit a museum",
+            "Watch a movie",
+            "Try a new recipe",
+            "Do a puzzle or board game",
+            "Have a cozy indoor gathering",
+            "Listen to a podcast while relaxing"
+        ];
     } else if (condition === 'rain') {
-        activities = ["Go to a coffee shop", "Play indoor games", "Visit a shopping mall"];
+        activities = [
+            "Go to a coffee shop",
+            "Play indoor games",
+            "Visit a shopping mall",
+            "Have a movie marathon",
+            "Attend an indoor fitness class",
+            "Explore an indoor botanical garden",
+            "Take a long bath and relax"
+        ];
     } else if (condition === 'snow') {
-        activities = ["Build a snowman", "Go skiing", "Enjoy a warm drink indoors"];
+        activities = [
+            "Build a snowman",
+            "Go skiing",
+            "Enjoy a warm drink indoors",
+            "Go ice skating",
+            "Have a snowball fight",
+            "Make a snow angel",
+            "Cozy up with a good book or movie"
+        ];
     } else if (condition === 'thunderstorm') {
-        activities = ["Stay indoors", "Watch a storm from a safe place", "Read a book"];
+        activities = [
+            "Stay indoors",
+            "Watch a storm from a safe place",
+            "Read a book",
+            "Listen to soothing music or podcasts",
+            "Organize your closet or desk",
+            "Bake some comfort food",
+            "Try a new indoor craft or hobby"
+        ];
     } else if (condition === 'fog') {
-        activities = ["Visit a local park", "Enjoy a scenic drive", "Take photos of the fog"];
+        activities = [
+            "Visit a local park",
+            "Enjoy a scenic drive",
+            "Take photos of the fog",
+            "Go for a peaceful walk through the fog",
+            "Read a mystery or atmospheric novel",
+            "Visit a quiet café and relax",
+            "Take a yoga class indoors"
+        ];
     } else {
         activities = ["Stay safe and enjoy your day!"];
     }
 
-    activityDiv.innerHTML = `<strong style="color: black;
-    background-color: #ffffff0f;
-    border-radius: 20px;
-    padding: 0.16em;">Suggested Activities:</strong> ${activities.join(', ')}`;
+    // Pick a random activity from the list
+    const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+
+    // Display the random activity
+    activityDiv.innerHTML = `
+        <strong style="color: black; border-radius: 20px; padding: 0.16em;">Suggested Activity:</strong>
+        <p style="padding-top: 0.5em; font-size: 1.1em; font-weight: bold;">${randomActivity}</p>
+    `;
 };
 
 // Fetch a background image from Unsplash
@@ -239,7 +329,7 @@ const fetchBackgroundImage = async (city, weatherCondition) => {
         }
     } catch (error) {
         console.error("Error fetching background image:", error);
-        app.style.backgroundImage = "url('./path/to/default/image.jpg')";
+        app.style.backgroundImage = "url('./images/defaultImage.jpg')";
     }
 };
 
@@ -255,7 +345,6 @@ const getFutureData = async (lat, long) => {
         console.error("Error fetching future weather data:", error);
     }
 };
-
 
 // Display 7-day forecast
 const displayForecast = (dailyForecasts) => {
